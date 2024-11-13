@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campaign Stats</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .sort-link { text-decoration: none; color: black; }
+        .current-sort { font-weight: bold; color: blue; }
+        .order-indicator::after { content: "↓"; margin-left: 5px; }
+        .order-asc::after { content: "↑"; }
+        .percentage::after { content: "%"; }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>广告组ID</th>
+            <th>广告组名称</th>
+            <th>
+                <a href="/?sort=status&order={{ 'asc' if current_sort == 'status' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'status' %}current-sort{% endif %}">
+                    状态
+                    {% if current_sort == 'status' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=spend&order={{ 'asc' if current_sort == 'spend' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'spend' %}current-sort{% endif %}">
+                    花费($)
+                    {% if current_sort == 'spend' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=impressions&order={{ 'asc' if current_sort == 'impressions' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'impressions' %}current-sort{% endif %}">
+                    展示量
+                    {% if current_sort == 'impressions' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=clicks&order={{ 'asc' if current_sort == 'clicks' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'clicks' %}current-sort{% endif %}">
+                    点击量
+                    {% if current_sort == 'clicks' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=installs&order={{ 'asc' if current_sort == 'installs' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'installs' %}current-sort{% endif %}">
+                    安装量
+                    {% if current_sort == 'installs' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=purchases&order={{ 'asc' if current_sort == 'purchases' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'purchases' %}current-sort{% endif %}">
+                    付费量
+                    {% if current_sort == 'purchases' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=cpm&order={{ 'asc' if current_sort == 'cpm' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'cpm' %}current-sort{% endif %}">
+                    CPM
+                    {% if current_sort == 'cpm' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=cpc&order={{ 'asc' if current_sort == 'cpc' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'cpc' %}current-sort{% endif %}">
+                    CPC
+                    {% if current_sort == 'cpc' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=cpi&order={{ 'asc' if current_sort == 'cpi' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'cpi' %}current-sort{% endif %}">
+                    CPI
+                    {% if current_sort == 'cpi' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=cpa&order={{ 'asc' if current_sort == 'cpa' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'cpa' %}current-sort{% endif %}">
+                    CPA
+                    {% if current_sort == 'cpa' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=ctr&order={{ 'asc' if current_sort == 'ctr' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'ctr' %}current-sort{% endif %}">
+                    CTR
+                    {% if current_sort == 'ctr' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=cvr&order={{ 'asc' if current_sort == 'cvr' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'cvr' %}current-sort{% endif %}">
+                    CVR
+                    {% if current_sort == 'cvr' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="/?sort=create_time&order={{ 'asc' if current_sort == 'create_time' and current_order == 'desc' else 'desc' }}" 
+                   class="sort-link {% if current_sort == 'create_time' %}current-sort{% endif %}">
+                    创建时间
+                    {% if current_sort == 'create_time' %}<span class="order-indicator {% if current_order == 'asc' %}order-asc{% endif %}"></span>{% endif %}
+                </a>
+            </th>
+            <th>记录开始日期</th>
+            <th>记录结束日期</th>
+        </tr>
+        {% for campaign in campaigns %}
+        <tr>
+            <td>{{ campaign.tiktok_campaign_id }}</td>
+            <td>{{ campaign.name }}</td>
+            <td>{{ get_status_text(campaign.status) }}</td>
+            <td>{{ "%.2f"|format(campaign.total_spend or 0) }}</td>
+            <td>{{ campaign.total_impressions or 0 }}</td>
+            <td>{{ campaign.total_clicks or 0 }}</td>
+            <td>{{ campaign.total_installs or 0 }}</td>
+            <td>{{ campaign.total_purchases or 0 }}</td>
+            <td>{{ "%.2f"|format(campaign.cpm or 0) }}</td>
+            <td>{{ "%.2f"|format(campaign.cpc or 0) }}</td>
+            <td>{{ "%.2f"|format(campaign.cpi or 0) }}</td>
+            <td>{{ "%.2f"|format(campaign.cpa or 0) }}</td>
+            <td class="percentage">{{ "%.2f"|format(campaign.ctr or 0) }}</td>
+            <td class="percentage">{{ "%.2f"|format(campaign.cvr or 0) }}</td>
+            <td>{{ campaign.create_time.strftime('%Y-%m-%d') if campaign.create_time }}</td>
+            <td>{{ campaign.start_date.strftime('%Y-%m-%d') if campaign.start_date }}</td>
+            <td>{{ campaign.end_date.strftime('%Y-%m-%d') if campaign.end_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
